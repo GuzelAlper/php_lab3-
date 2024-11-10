@@ -2,36 +2,33 @@
 
 require 'vendor/autoload.php';
 
-use App\MagicClass;
+use App\Point;
+use App\Vector;
 
-// Создаем новый экземпляр класса MagicClass
-$magic = new MagicClass();
+// Создаем точку Т1
+$t1 = new Point(3, 4);
 
-// Демонстрация вызова всех магических методов
+// Создаем вектор V1
+$v1 = new Vector(1, 2);
 
-// Вызываем несуществующий метод объекта (вызовет __call)
-$magic->nonExistentMethod(); // __call
+// Как V2, мы создаем нулевой вектор
+$v2 = new Vector(0, 0);
 
-// Вызываем несуществующий статический метод класса (вызовет __callStatic)
-MagicClass::nonExistentStaticMethod(); // __callStatic
+// Мы создаем вектор V3, перпендикулярный вектору V1
+$v3 = new Vector(-2, 1);
 
-// Выводим объект как строку (вызовет __toString)
-echo $magic; // __toString
+// Вычисляем и печатаем длину каждого вектора
+echo "V1 длина: " . $v1->length() . PHP_EOL;
+echo "V2 длина: " . $v2->length() . PHP_EOL;
+echo "V3 длина: " . $v3->length() . PHP_EOL;
 
-// Присваиваем значение несуществующему свойству (вызовет __set)
-$magic->property = "значение"; // __set
+//Мы проверяем, что V1 и V3 перпендикулярны
+if ($v1->isPerpendicular($v3)) {
+    echo "V1 и V3 перпендикулярны друг другу." . PHP_EOL;
+} else {
+    echo "V1 и V3 не перпендикулярны друг другу." . PHP_EOL;
+}
 
-// Получаем значение несуществующего свойства (вызовет __get)
-echo $magic->property; // __get
-
-// Проверяем, установлено ли свойство (вызовет __isset)
-isset($magic->property); // __isset
-
-// Удаляем несуществующее свойство (вызовет __unset)
-unset($magic->property); // __unset
-
-// Используем объект как функцию (вызовет __invoke)
-$magic(); // __invoke
-
-// Клонируем объект (вызовет __clone)
-$cloneMagic = clone $magic;
+// T1 noktasını V1 vektörü kadar taşıyoruz
+$t1->move($v1->x, $v1->y);
+echo "Новые координаты точки T1: (" . $t1->x . ", " . $t1->y . ")" . PHP_EOL;
